@@ -44,6 +44,20 @@
 // 10. 查看分支
 // - git branch
 
+
+
 // 11. 切换分支名
 // - git checkout 分支名
 
+// 1. 安装vant(注意: 安装的vue2对应的vant)
+//   -  yarn add vant@latest-v2 -S
+// 2.在main.js引入vant
+//  - import Vant from 'vant'
+//  - import 'vant/lib/index.css'
+//  - Vue.use(Vant)
+// 3. 测试vant
+//  - cv button那妞
+// 4. 提交代码
+// - git add .
+// - git commit -m 'feat:初始化vant'
+// - git push
