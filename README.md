@@ -61,3 +61,17 @@
 // - git add .
 // - git commit -m 'feat:初始化vant'
 // - git push
+
+
+### 路由的懒加载
+
+1. 什么是多页面应用: 有多个 html 文件
+2. 什么是单页面应用(SPA --> single page application) : 有一个 html 文件
+3. 单页面应用的缺点?
+
+- 首屏加载速度慢?
+- webpack 打包的时候 是从入口(main.js)打包, 打包到出口(app.js), 他会把所有的路由组件打包进 app.js
+  并且在第一次请求的时候, 加载所有的路由组件
+
+- 使用路由懒加载
+- 只有使用到了路由组件, 采取加载他
