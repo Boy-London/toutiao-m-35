@@ -5,7 +5,7 @@
 module.exports = {
     plugins: {
       'postcss-pxtorem': {
-        rootValue({ file }) { //结束一个file参数
+        rootValue({ file }) { //一个file参数
       //通过indeof == -1语法表示查找到是vant组件，不是就用 75设计稿
           return file.indexOf('vant') !== -1 ? 37.5 : 75;
           // 或者 rootValue: ({ file }) => (/vant/.test(file) ? 37.5 : 75),

@@ -1,6 +1,8 @@
 
 //login组件请求接口
 import request from "@/utils/request" 
+// 获取token 令牌
+import  store  from  '@/store' 
 
 /**
  * 
@@ -37,3 +39,18 @@ export const getCodeAPI = moblie => { //data表示箭头函数的形参
       url:`/v1_0/sms/codes/${moblie}` //monlie为参数需要携带参数过去
     })  
   }
+
+  // 获取用户信息
+export const getUserInfoAPI = () => {
+  return request({
+      url:'/v1_0/user',
+    //理解headers, 请求头！将用户的token 进行传递进行识别！必须先导入store!
+    // header表示后台规定传递的请求头！headers ==>params！
+    // headers: {
+    //   //传递用户的token,bearer 表示用户令牌！
+    //   Authorization: ` Bearer  ${Bearerstore.state.tokenObj.token}`
+    // }
+    })
+  }
+// 获取用户信息,判断是否登录，每次都需要token令牌，过于冗余！
+//基于aixos进行封装请求拦截器,每次get请求都会将token 传入后台，判断是否登录!

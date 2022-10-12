@@ -74,7 +74,7 @@
 <script>
 //按需导入longAPi请求接口
 import { loginAPI, getCodeAPI } from "@/api";
-import { mapMutations } from "vuex";
+import { mapMutations } from "vuex"; //导入token
 
 export default {
   data() {
@@ -108,9 +108,8 @@ export default {
       isShowCodeBtn: false,
     };
   },
-
   methods: {
-    ...mapMutations(["SET_TOKEN"]),
+    ...mapMutations(["SET_TOKEN"]), //解构token
     // 登录验证
     async onSubmit() {
       //表示这俩数据,用this.code this.moblie进行结构! 少写this
@@ -123,13 +122,17 @@ export default {
       });
 
       try {
-        const res = await loginAPI(mobile, code);
-        
-        this.SET_TOKEN(data.data)
+        const res = await loginAPI(mobile, code);  //获取后台数据！
+        console.log(res);
 
-        this.$router.push('/profile')  //登录跳转
+        const { data } = res;  //解构token！！！获取data,获取data.token!
+
+        this.$router.push("/profile"); //登录跳转
 
         this.$toast.success("登录成功");
+
+        this.SET_TOKEN(data.data); //必须存储touken,作为身份令牌！
+
         console.log(res);
         //将错误信息细分,判断出具体的错误
       } catch (error) {
@@ -166,7 +169,7 @@ export default {
       try {
         await getCodeAPI(this.mobile);
         this.$toast.success("发送验证码成功");
-        this.SET_TOKEN(data.data);
+        this.SET_TOKEN(data.data); //验证token
       } catch (error) {
         //细分错误细节!
         if (error.response?.status === 429) {
