@@ -13,11 +13,11 @@
                 width="1.5rem"
                 height="1.5rem"
                 round
-                src="https://img01.yzcdn.cn/vant/cat.jpeg"
+                :src="userInfo.photo"
               />
 
               <span style="color: #fff; font-size: 0.4rem; margin-left: 0.4rem"
-                >111114123412</span
+                >{{userInfo.name}}</span
               >
             </van-row>
           </van-col>
@@ -41,21 +41,21 @@
           <van-grid class="grid" :border="false">
             <van-grid-item text="头条">
               <!-- 使用插槽.自定义内容图标 -->
-              <template #icon></template>
+              <template #icon>{{userInfo.art_count}}</template>
             </van-grid-item>
 
             <van-grid-item text="粉丝">
               <!-- 使用插槽.自定义内容图标 -->
-              <template #icon></template>
+              <template #icon>{{userInfo.fans_count}}</template>
             </van-grid-item>
 
             <van-grid-item text="关注">
               <!-- 使用插槽.自定义内容图标 -->
-              <template #icon></template>
+              <template #icon>{{userInfo.follow_count}}</template>
             </van-grid-item>
             <van-grid-item text="获赞">
               <!-- 使用插槽.自定义内容图标 -->
-              <template #icon></template>
+              <template #icon>{{userInfo.like_count}}</template>
             </van-grid-item>
           </van-grid>
         </van-row>
@@ -127,8 +127,11 @@ export default {
 
   // 如果用户登录,立即调用这个函数,将用户的token传入后台用于判断是否登录！！
   created() {
+
     this.getUserInfo();
-    console.log(this.userInfo);
+  //请求时异步任务！必须等所有的同步任务执行完，才会执行异步任务(例如请求,定时器)
+  // 这里console.log是同步执行, 才会执行这个异步请求任务！
+    console.log(this.userInfo); //无法答应，请求时异步任务！
   },
 
   methods: {
@@ -155,7 +158,7 @@ export default {
       // 判断用户是否登录
       if (this.isLogin) {
         const { data } = await getUserInfoAPI();
-        this.userInfo = data.data;
+        this.userInfo = data.data;  //将获取到的数据，保存在userifo变量中进行渲染页面
       }
     },
   },
@@ -163,7 +166,10 @@ export default {
   computed: {
     // 映射登录与未登录变量
     ...mapGetters(["isLogin"]),
+  
+    
   },
+
 };
 </script>
 

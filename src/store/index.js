@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   // plugins 用专门用来配置vuex插件的
   // 调用该函数可以增加一个配置项！
+
+  
   plugins: [
     createPersistedState({
       key: "HEIMA_TOUTIAO", //指定token名称
@@ -19,6 +21,7 @@ export default new Vuex.Store({
       },
     }),
   ], //调用一下这个函数,即可实现本地存储!
+  
   state: {
     // 定义存储token
     tokenObj: {},
@@ -30,11 +33,13 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {},
+  
   getters: {
     //定义登录与未登录变量
     isLogin(state) {
       //两次取反表示转为布尔值
       return !!state.tokenObj.token;
     },
+
   },
 });

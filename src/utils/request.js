@@ -2,7 +2,7 @@
 //配置总的服务请求地址,基地址
 
 //导入store 中的token 令牌
-import  store from '@/store'
+import store from '@/store'
 
 // 导入axios
 import axios from 'axios'
@@ -21,13 +21,15 @@ export default request  //向外暴露
 
 
 // 配置请求拦截器
-// Add a request interceptor
-axios.interceptors.request.use(function (config) {
-    // 对tooken令牌对象进行结构赋值！
+// 先导入vuex中的 token! import store from '@/store'=
+request.interceptors.request.use(function (config) {
+       
+    // 在导入的vuex中,将tooken令牌对象进行结构！
     const {
     getters:{isLogin},
     state:{tokenObj}
     } = store
+
     // 根据令牌首先判断用户是否登录！
     if (isLogin) {
     // 每次get请求都传递token 令牌！
@@ -35,6 +37,5 @@ axios.interceptors.request.use(function (config) {
     }
     return config;
   }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
+
   });

@@ -41,7 +41,7 @@ export const getCodeAPI = moblie => { //data表示箭头函数的形参
   }
 
   // 获取用户信息
-export const getUserInfoAPI = () => {
+ export const getUserInfoAPI = () => {
   return request({
       url:'/v1_0/user',
     //理解headers, 请求头！将用户的token 进行传递进行识别！必须先导入store!
