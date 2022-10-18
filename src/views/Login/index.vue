@@ -4,7 +4,7 @@
     <van-nav-bar title="登录" class="navbar" />
 
     <!-- 登录表单 -->
-    <!-- 
+    <!--
 1，input没有name属性不能提交数据!必须有name属性！代表收集用户的输入的信息
 2,form表当中,任何一个button都会触发submit事件!不一定需要type='submit'
 3，name属性是表当的标识符！
@@ -72,80 +72,80 @@
 </template>
 
 <script>
-//按需导入longAPi请求接口
-import { loginAPI, getCodeAPI } from "@/api";
-import { mapMutations } from "vuex"; //导入token
+// 按需导入longAPi请求接口
+import { loginAPI, getCodeAPI } from '@/api'
+import { mapMutations } from 'vuex' // 导入token
 
 export default {
   data() {
     // 正则数组可以书写在这
     const mobliRrules = [
-      { required: true, message: "请输入手机号" },
+      { required: true, message: '请输入手机号' },
       {
-        trigge: "onChange",
+        trigge: 'onChange',
         pattern:
           /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/,
-        message: "请输入正确的手机号",
-      },
-    ];
+        message: '请输入正确的手机号'
+      }
+    ]
 
     const codeRrules = [
-      { required: true, message: "验证码" },
+      { required: true, message: '验证码' },
       {
-        trigge: "onChange",
+        trigge: 'onChange',
         pattern: /^\d{6}$/,
-        message: "请输入正确验证码",
-      },
-    ];
+        message: '请输入正确验证码'
+      }
+    ]
 
     return {
-      //手机号,验证码变量
-      mobile: "",
-      code: "",
+      // 手机号,验证码变量
+      mobile: '',
+      code: '',
       // 定义的正则规则变量!
       mobliRrules,
       codeRrules,
-      isShowCodeBtn: false,
-    };
+      isShowCodeBtn: false
+    }
   },
   methods: {
-    ...mapMutations(["SET_TOKEN"]), //解构token
+    ...mapMutations(['SET_TOKEN']), // 解构token
     // 登录验证
     async onSubmit() {
-      //表示这俩数据,用this.code this.moblie进行结构! 少写this
-      const { code, mobile } = this;
+      // 表示这俩数据,用this.code this.moblie进行结构! 少写this
+      const { code, mobile } = this
 
-      //$toast是vant组件自带的语法！用于提示语句！
+      // $toast是vant组件自带的语法！用于提示语句！
       this.$toast.loading({
-        message: "登录中...",
-        forbidClick: 0, //持续时间默认为0
-      });
+        message: '登录中...',
+        forbidClick: 0 // 持续时间默认为0
+      })
 
       try {
-        const res = await loginAPI(mobile, code);  //获取后台数据！
-        console.log(res);
+        const res = await loginAPI(mobile, code) // 获取后台数据！
+        console.log(res)
 
-        const { data } = res;  //解构token！！！获取data,获取data.token!
+        const { data } = res // 解构token！！！获取data,获取data.token!
 
-        this.$router.push("/profile"); //登录跳转
+        this.$router.push('/profile') // 登录跳转
 
-        this.$toast.success("登录成功");
+        this.$toast.success('登录成功')
 
-        this.SET_TOKEN(data.data); //必须存储touken,作为身份令牌！
+        this.SET_TOKEN(data.data) // 必须存储touken,作为身份令牌！
 
-        console.log(res);
-        //将错误信息细分,判断出具体的错误
+        console.log(res)
+        // 将错误信息细分,判断出具体的错误
       } catch (error) {
         // 区分js导致的错误还是axios导致的错误
-        //axios封装的错误对象
+        // axios封装的错误对象
         // - 对象.response.data存储这后端返回的具体数据！
         // -对象 .response .status 后端返回的状态码
         if (error.response?.status === 400) {
           // ?. 是es11的语法,表示判断一个对象有没有这个值，没有放回的一个undefend === false!
-          this.$toast.fail(error.response.data.message);
+          this.$toast.fail(error.response.data.message)
         } else {
-          //js 导致的错误，或者507
-          throw error; //抛出错误! 返回控制台！
+          // js 导致的错误，或者507
+          throw error // 抛出错误! 返回控制台！
         }
       }
     },
@@ -154,31 +154,31 @@ export default {
     async getCode() {
       // 1,获取表单元素,识别具体表单对象！
       // validate用来验证哪一个表单元素.通过name值识别！
-      await this.$refs.form.validate("moblie");
+      await this.$refs.form.validate('moblie')
 
       // 2,显示倒计时
-      this.isShowCodeBtn = true;
+      this.isShowCodeBtn = true
 
       //  3,提示looding
       this.$toast.loading({
-        message: "发送中....",
-        forbidClick: true,
-      });
+        message: '发送中....',
+        forbidClick: true
+      })
 
       // 4,发送验证码
       try {
-        await getCodeAPI(this.mobile);
-        this.$toast.success("发送验证码成功");
-        this.SET_TOKEN(data.data); //验证token
+        await getCodeAPI(this.mobile)
+        this.$toast.success('发送验证码成功')
+        this.SET_TOKEN(data.data) // 验证token
       } catch (error) {
-        //细分错误细节!
+        // 细分错误细节!
         if (error.response?.status === 429) {
-          this.$toast.fail(error.response.data.message);
+          this.$toast.fail(error.response.data.message)
         }
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">

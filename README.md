@@ -75,3 +75,53 @@
 
 - 使用路由懒加载
 - 只有使用到了路由组件, 采取加载他
+
+
+### Eslint
+
+> 代码风格检查工具
+
+1. 如何关闭 eslint
+
+- lintOnSave: false
+- 关闭 elint 的检查, 关闭的编译时候的检查, 不关闭插件的 eslint 检查
+
+2. 插件 VScode 的插件 Eslint
+
+   > 功能就是读取根目录下的 eslint 的配置, 违反了规则, 在编辑器上提示
+
+3. 如何根据 eslint 的规则格式化代码
+
+   > vscode 的插件 prettier-eslint
+
+- @installed 显示已经安装过的插件
+- 1.关闭其他的格式化代码工具 (prettier,beautify,err-lens)
+- 2. 将 prettier-eslint 设置为默认的格式化工具
+- 3. 保存的时候自动格式化
+
+4. 缺点
+
+- 不能读取所有的 eslint 配置
+
+5. 手动关闭 eslint 规则
+
+   > 1. eslintrc 里修改 rules
+
+   ```js
+   // 规则: 新增一些规则, 关闭规则
+   // key: 规则名称 : off/0关闭, error/2错误, warn/1 警告
+   rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    //手动需要关闭的规则！
+    'vue/multi-word-component-names': 'off'
+   }
+
+   2. /* eslint-disable-next-line */ /* eslint-disable-line */
+
+    3.
+   /* eslint-disable */ 禁用从这个注释一下的eslint规则
+
+
+   4. 项目的根目录下 新建.eslintignore, 和gitignore写法一样
+   ```

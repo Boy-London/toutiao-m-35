@@ -15,7 +15,7 @@
           <!-- 首先看是否在profile 我的页面,根据'profile'属性来判断， 在根据是否有token来判断渲染登录还是未登录 -->
           <p>
             {{
-              item.to === "profile" ? (isLogin ? "我的" : "未登录") : item.text
+              item.to === 'profile' ? (isLogin ? '我的' : '未登录') : item.text
             }}
           </p>
         </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -33,18 +33,18 @@ export default {
       // 建立配置表解决代码冗余的问题,直接通过v-for渲染即可！
       layoutTable: [
         // 这里的to 属性必须与路由相匹配！！
-        { icon: "toutiao-shouye", text: "首页", to: "/ " },
-        { icon: "toutiao-shipin", text: "视频", to: "/video" },
-        { icon: "toutiao-wenda", text: "问答", to: "/qa" },
-        { icon: "toutiao-wode", text: "我的", to: "/profile" },
-      ],
-    };
+        { icon: 'toutiao-shouye', text: '首页', to: '/ ' },
+        { icon: 'toutiao-shipin', text: '视频', to: '/video' },
+        { icon: 'toutiao-wenda', text: '问答', to: '/qa' },
+        { icon: 'toutiao-wode', text: '我的', to: '/profile' }
+      ]
+    }
   },
 
   computed: {
-    ...mapGetters(["isLogin"]),
-  },
-};
+    ...mapGetters(['isLogin'])
+  }
+}
 </script>
 
 <style scoped lang="less">
